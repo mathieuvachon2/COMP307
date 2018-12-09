@@ -1,0 +1,71 @@
+
+
+.aboutWebsite {
+    color: darkslategrey;
+    font-size: 17px;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    grid-row-end: 5;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
+    grid-gap: 10px;
+    margin-left: 52px;
+    width : 70%;
+}
+
+
+.header {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    
+}
+
+.aboutUs {
+    text-align: center;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    
+}
+
+.benoit{
+    width: 100%;
+    height: 100%;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.mathieu{
+    width: 100%;
+    height: 100%;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+.silan{
+    width: 100%;
+    height: 100%;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 3;
+    grid-column-end: 4;
+}
+.affan{
+    width: 100%;
+    height: 100%;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 4;
+    grid-column-end: 5;
+}
+
+.container img{
+    width: 90%;
+    height: 90%;
+}

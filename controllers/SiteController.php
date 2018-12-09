@@ -61,6 +61,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        Yii::$app->view->registerCssFile('css/index.css');
         return $this->render('index');
     }
 
