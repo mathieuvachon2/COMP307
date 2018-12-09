@@ -10,6 +10,10 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
+/*Our models*/
+use app\models\Games;
+use app\models\Movies;
+
 class SiteController extends Controller
 {
     /**
@@ -61,8 +65,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        /*Get an array of games sorted by their ids*/
+        $query = Games::find();
+        $games = $query -> orderBy('id') -> all();
+
+        $query = Movies::find();
+        $movies = $query -> orderBy('id') -> all();
+
         Yii::$app->view->registerCssFile('css/index.css');
-        return $this->render('index');
+        return $this->render('index', [
+            'games' => $games,
+            'movies' => $movies,
+        ]);
     }
 
     /**
