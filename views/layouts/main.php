@@ -41,7 +41,7 @@ AppAsset::register($this);
 
 <div class='header-desktop'>
         <nav class="navbar navbar-expand-sm justify-content-end">
-            <a class="navbar-brand" href='index.html'><img src='/images/logo.png'/></a>
+            <a class="navbar-brand" href='/'><img src='/images/logo.png'/></a>
             <form class="form-inline" action="/action_page.php">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search...">
                 <button class="btn btn-success" type="submit">Search</button>
