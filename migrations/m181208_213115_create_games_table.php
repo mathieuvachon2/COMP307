@@ -3,20 +3,20 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `movies`.
+ * Handles the creation of table `games`.
  */
-class m181119_034108_create_movies_table extends Migration
+class m181208_213115_create_games_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('movies', [
+        $this->createTable('games', [
             'id' => $this->primaryKey(),
             'title' => $this->string(64)->notNull(),
             'description' => $this->text(),
-            'year' => $this->integer()->notNull()->defaultValue(0)
+            'year' => $this->integer()
         ]);
     }
 
@@ -25,6 +25,6 @@ class m181119_034108_create_movies_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('movies');
+        $this->dropTable('games');
     }
 }

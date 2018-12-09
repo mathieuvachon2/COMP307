@@ -9,7 +9,7 @@ use yii\db\Migration;
  * - `movies`
  * - `genres`
  */
-class m181119_034444_create_junction_table_for_movies_and_genres_tables extends Migration
+class m181119_034444_create_junction_table_for_movies_and_movie_genres_tables extends Migration
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,9 @@ class m181119_034444_create_junction_table_for_movies_and_genres_tables extends 
     public function safeUp()
     {
         $this->createTable('movies_genres', [
-            'id' => $this->primaryKey(),
-            'movies_id' => $this->integer(),
-            'genres_id' => $this->integer(),
+            'movies_id' => $this->integer()->notNull(),
+            'movie_genres_id' => $this->integer()->notNull(),
+            'PRIMARY KEY(movies_id, movie_genres_id)'
         ]);
 
         // creates index for column `movies_id`
@@ -43,15 +43,15 @@ class m181119_034444_create_junction_table_for_movies_and_genres_tables extends 
         $this->createIndex(
             'idx-movies_genres-genres_id',
             'movies_genres',
-            'genres_id'
+            'movie_genres_id'
         );
 
         // add foreign key for table `genres`
         $this->addForeignKey(
             'fk-movies_genres-genres_id',
             'movies_genres',
-            'genres_id',
-            'genres',
+            'movie_genres_id',
+            'movie_genres',
             'id',
             'CASCADE'
         );
