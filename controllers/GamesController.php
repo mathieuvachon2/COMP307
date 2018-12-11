@@ -9,10 +9,19 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
+use app\models\Games\Games;
+use app\models\Games\GameGenres;
+
 class GamesController extends Controller {
 
     public function actionIndex() {
         Yii::$app->view->registerCssFile('/css/gamesIndex.css');
+        $query = Games::find();
+        $games = $query -> orderBy('id') -> all();
+
+        //Get the genres as a list ordered by their ids
+        $query = GameGenres::find();
+        $genres = $query -> orderBy('id') -> all();
 
         return $this->render('index',array(
             //PLACE VARIABLES HERE

@@ -69,8 +69,6 @@ class SiteController extends Controller
         
         Yii::$app->view->registerCssFile('css/index.css');
         return $this->render('index', [
-            'games' => $games,
-            'movies' => $movies,
         ]);
     }
 

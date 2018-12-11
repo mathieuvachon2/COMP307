@@ -11,7 +11,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
-use app\models\Games;
+use app\models\Games\Games;
 use app\models\Movies;
 
 
