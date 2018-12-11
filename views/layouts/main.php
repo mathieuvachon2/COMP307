@@ -11,6 +11,10 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
+use app\models\Games;
+use app\models\Movies;
+
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -27,6 +31,7 @@ AppAsset::register($this);
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/popup.js"></script>
+    <script src="/js/common.js"></script>
 
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -38,14 +43,26 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+<?php   $query = Games::find();
+        $games = $query -> orderBy('id') -> all();
 
-<div class='header-desktop'>
+        $query = Movies::find();
+        $movies = $query -> orderBy('id') -> all();?>
+    <div class='header-desktop'>
         <nav class="navbar navbar-expand-sm justify-content-end">
-            <a class="navbar-brand" href='/'><img src='/images/logo.png'/></a>
-            <form class="form-inline" action="/action_page.php">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search...">
-                <button class="btn btn-success" type="submit">Search</button>
-            </form>
+            <a href='/'><img src='/images/logo.png'/></a>
+            <div class="dropdown search">
+                <input type='text' class='search-filter' placeholder='Search' onfocus='showdropdown()' onkeyup='filter("desktop")' onblur='hidedropdown()'></input>
+                <div class='dropdown-menu'>
+                <?php foreach($games as $game) { ?>
+                    <a class='dropdown-item game' href='/games/view/<?php echo $game->id; ?>'><?php echo $game->title; ?></a>
+                <?php } ?>
+                    <div class="dropdown-divider"></div>
+                <?php foreach ($movies as $mov) { ?>
+                    <a class='dropdown-item mov' href='/movies/view/<?php echo $mov->id; ?>'><?php echo $mov->title; ?></a>                    
+                <?php } ?>
+                </div>
+            </div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link px-3" href="<?php echo Url::to('/games/index')?>">Video Games</a>
@@ -58,11 +75,19 @@ AppAsset::register($this);
     </div>
     <div class='header-mobile'>
         <nav class="navbar navbar-expand-sm">
-            <a class="navbar-brand" href='index.html'><img src='/images/logo.png'/></a>
-            <form class="form-inline" action="/action_page.php">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search...">
-                <button class="btn btn-success" type="submit">Search</button>
-            </form>
+            <a href='/'><img src='/images/logo.png'/></a>
+            <div class="dropdown search">
+                <input type='text' class='search-filter' placeholder='Search' onfocus='showdropdown()' onkeyup='filter("mobile")' onblur='hidedropdown()'></input>
+                <div class='dropdown-menu'>
+                <?php foreach($games as $game) { ?>
+                    <a class='dropdown-item game' href='/games/view/<?php echo $game->id; ?>'><?php echo $game->title; ?></a>
+                <?php } ?>
+                    <div class="dropdown-divider"></div>
+                <?php foreach ($movies as $mov) { ?>
+                    <a class='dropdown-item mov' href='/movies/view/<?php echo $mov->id; ?>'><?php echo $mov->title; ?></a>                    
+                <?php } ?>
+                </div>
+            </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>

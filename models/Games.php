@@ -6,4 +6,5 @@ use yii\db\ActiveRecord;
 
 class Games extends ActiveRecord
 {
+    
 }

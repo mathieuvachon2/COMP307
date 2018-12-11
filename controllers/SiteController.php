@@ -66,12 +66,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         /*Get an array of games sorted by their ids*/
-        $query = Games::find();
-        $games = $query -> orderBy('id') -> all();
-
-        $query = Movies::find();
-        $movies = $query -> orderBy('id') -> all();
-
+        
         Yii::$app->view->registerCssFile('css/index.css');
         return $this->render('index', [
             'games' => $games,

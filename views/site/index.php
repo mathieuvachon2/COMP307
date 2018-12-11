@@ -18,7 +18,7 @@ $this->title = 'My Yii Application';
             </div>
         </div>
     </div>
-    
+    <?php isset($games) ? "GO FUCK YOURSELF" : "YOUZ A GOOD GUY" ; ?>
     <div class="row py-5">
         <div class="col-md-3">
             <div class="benoit">
