@@ -15,6 +15,8 @@ class GamesController extends Controller {
 
     public function actionIndex() {
         Yii::$app->view->registerCssFile('/css/gamesIndex.css');
+        Yii::$app->view->registerJsFile('/js/index2.js');
+
 
         return $this->render('index',array(
             //PLACE VARIABLES HERE
