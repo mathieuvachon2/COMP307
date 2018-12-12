@@ -86,7 +86,6 @@ class GamesController extends Controller {
             -> orderBy('id')
             -> all();
 
-
         return $this->render('view',array(
             'game' => $game,            //The current game (need full model/activerecord) + tags
             'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
@@ -140,14 +139,18 @@ class GamesController extends Controller {
         //var_dump(in_array($tagIds[12],array_column($simGames[0]->tags,'id')));
        // var_dump($tagIds[10]);
         foreach ($simGames as $similarGame) {
-            foreach ($tagIds as $tag) {
-                //var_dump($tag);
-               // var_dump($similarGame->tags);
-                //var_dump(in_array($tag,array_column($similarGame->tags, 'id')));
-                if(in_array($tag,array_column($similarGame->tags, 'id'))){
-                    array_push($filteredGames,$similarGame);
-                    break;
+            if (isset($tagIds) && !empty($tagIds)) {
+                foreach ($tagIds as $tag) {
+                    //var_dump($tag);
+                   // var_dump($similarGame->tags);
+                    //var_dump(in_array($tag,array_column($similarGame->tags, 'id')));
+                    if(in_array($tag,array_column($similarGame->tags, 'id'))){
+                        array_push($filteredGames,$similarGame);
+                        break;
+                    }
                 }
+            } else {
+                $filteredGames = $simGames;
             }
         }
 
@@ -156,7 +159,7 @@ class GamesController extends Controller {
         $simGames = $filteredGames;
         //var_dump($simGames);
         
-        echo $this->renderPartial('simList',array(
+        return $this->renderPartial('simList',array(
             'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
         ));
     }
