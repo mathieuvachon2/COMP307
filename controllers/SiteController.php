@@ -11,7 +11,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 
 /*Our models*/
-use app\models\Games;
+use app\models\games\Games;
 use app\models\Movies;
 
 class SiteController extends Controller
