@@ -13,15 +13,15 @@
                 </div>
             </div>
             <div class='image'>
-                <img src='<?php //echo $game->image ?>'/>
+                <img src='<?php echo $game->image_url ?>'/>
             </div>
             <div class='description'>
                 <p><?php echo $game->description ?></p>
             </div>
             <div class='right-bar'>
-                <div class='tag'>RPG</div>
-                <div class='tag'>Action</div>
-                <div class='tag'>Multiplayer</div>
+                <?php foreach ($game->tags as $gTag) { ?>
+                <div class='tag'><?php echo $gTag->name ?></div>
+                <?php } ?>
             </div>
         </div>
         <div class='sim-list'>
@@ -34,7 +34,7 @@
         <div class='title'>
             Suggest Similarity
         </div>
-        <input type='hidden' name='curgame' value='10'></input>
+        <input type='hidden' name='curgame' value='<?php echo $game->id ?>'></input>
         <div class="form-group">
             <select multiple class='form-control' name="game">
                 <?php foreach ($gameList as $option) { ?>
