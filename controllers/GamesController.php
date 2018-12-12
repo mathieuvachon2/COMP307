@@ -196,7 +196,7 @@ class GamesController extends Controller {
         }
 
         //Remove everything after success as theyre just for testing purposes
-        echo json_encode(array('success'=>true,'simRecord'=>$simRecord[0]->count,'simids'=>$simIds,'oldCount'=>$oldCount));
+        echo json_encode(array('success'=>true,'simids'=>$simIds,'oldCount'=>$oldCount));
 
     }
 
