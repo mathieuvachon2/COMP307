@@ -11,18 +11,18 @@ use app\models\ContactForm;
 
 use app\models\movies\Movies;
 use app\models\movies\MoviesGenres;
-use app\models\movies\MoviesGames;
+use app\models\movies\MoviesMovies;
 use app\models\movies\MovieGenres;
-/*
+
 use app\components\MoviesHelpers;    //Need one for movies
-*/
+
 
 class MoviesController extends Controller {
 
    
 
     public function actionIndex() {
-        Yii::$app->view->registerCssFile('/css/gamesIndex.css');
+        Yii::$app->view->registerCssFile('/css/moviesIndex.css');
         Yii::$app->view->registerJsFile('/js/index2.js');
 
         $query = Movies::find();
@@ -31,7 +31,7 @@ class MoviesController extends Controller {
 
         //Get the genres as a list ordered by their ids
         $query = MovieGenres::find();
-        $genres = $query -> select('name')->orderBy('id') -> all();     //list of game genres ordered by id
+        $genres = $query -> select('name')->orderBy('id') -> all();     //list of movie genres ordered by id
         $genreList = array();
 
         foreach($genres as $genreName)
@@ -43,46 +43,45 @@ class MoviesController extends Controller {
         ]);
     }
 
-
-    /* Adapt to movies */
-
-    /*
+    
     public function actionView($id) {
-        Yii::$app->view->registerCssFile('/css/similar.css');
+        Yii::$app->view->registerCssFile('/css/similar.css');         //*******CHANGE THIS IF NEEDED********
         Yii::$app->view->registerJsFile('/js/similar.js');
 
-        //The specific game we're looking at
-        $query = Games::find();
-        $game = $query -> where([
+        //The specific movie we're looking at
+        $query = Movies::find();
+        $movie = $query -> where([
             'id' => $id,
         ])->one();
 
         //Get the list of all tags
-        $query = GameGenres::find();
+        $query = MovieGenres::find();
         $tagList = $query -> orderBy('id') -> all();
 
-        $game = GamesHelpers::addTagsToGame($game,$tagList);   //add the tags to this game object
+        $movie = MoviesHelpers::addTagsToMovie($movie,$tagList);   //add the tags to this movie object
 
-        //Get similar games to this game, and order them by descending count.
-        $query = GamesGames::find();
-        $simGamesID = $query->where([
-            'games_id_1' => $id,
+        //Get similar movies to this movie, and order them by descending count.
+        $query = MoviesMovies::find();
+        $simMoviesID = $query->where([
+            'movies_id_1' => $id,
             ])->orWhere([
-            'games_id_2' => $id,
+            'movies_id_2' => $id,
         ]) -> orderBy([
             'count' => SORT_DESC,
         ]) -> all();
 
-        $simGames = array();
-        foreach ($simGamesID as $simGame) {
-            $gameId = ($simGame->games_id_1 == $id ? $simGame->games_id_2 : $simGame->games_id_1);    //id of similar game
-            $similarGame = GamesHelpers::findGameByID($gameId);                     //find ActiveRecord of similar game
-            $similarGame = GamesHelpers::addTagsToGame($similarGame,$tagList);      //Add tags property to similar game record
-            array_push($simGames,$similarGame);
+        $simMovies = array();
+        foreach ($simMoviesID as $simMovie) {
+            $movieId = ($simMovie->movies_id_1 == $id ? $simMovie->movies_id_2 : $simMovie->movies_id_1);    //id of similar movie
+            $similarMovie = MoviesHelpers::findMovieByID($movieId);                     //find ActiveRecord of similar movie
+            $similarMovie = MoviesHelpers::addTagsToMovie($similarMovie,$tagList);      //Add tags property to similar movie record
+            array_push($simMovies,$similarMovie);
         }
+        //Only send back the top 10 similar movies
+        $simMovies = array_slice($simMovies,0,9,true);
         
-        $query = Games::find();
-        $gameList = $query 
+        $query = Movies::find();
+        $movieList = $query 
             -> select([
                 'id',
                 'title',
@@ -91,81 +90,122 @@ class MoviesController extends Controller {
             -> all();
 
 
-        return $this->render('view',array(
-            'game' => $game,            //The current game (need full model/activerecord) + tags
-            'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
-            'gameList' => $gameList,    //Entire game list (only need ID + Title)
+        return $this->render('view',array(  //CHANGE VIEW HERE IF NEED BE
+            'movie' => $movie,            //The current movie (need full model/activerecord) + tags
+            'simMovies' => $simMovies,    //Similar movies (ordered) (need full model/activerecord) + tags
+            'movieList' => $movieList,    //Entire movie list (only need ID + Title)
             'tagList' => $tagList,      //Entire tag list (id + name),
         ));
     }
 
     public function actionFilterbytag() {
         // use $_POST to get post data
-
-        $simGames = array();
+        $simMovies = array();
 
         $req = Yii::$app->request;
 
-        //var_dump($simGames);
+        //var_dump($simMovies);
         $mainId = $req->post('main_id');
         $tagIds = $req->post('tag_ids');
         //var_dump($tagIds);
 
-        $query = GamesGames::find();
-         $simGamesID = $query->where([
-            'games_id_1' => $mainId,
+        $query = MoviesMovies::find();
+         $simMoviesID = $query->where([
+            'movies_id_1' => $mainId,
             ])->orWhere([
-            'games_id_2' => $mainId,
+            'movies_id_2' => $mainId,
         ]) -> orderBy([
             'count' => SORT_DESC,
         ]) -> all();
 
         //Get the list of all tags
-        $query = GameGenres::find();
+        $query = MovieGenres::find();
         $tagList = $query -> orderBy('id') -> all();
 
-        $simGames = array();
-        foreach ($simGamesID as $simGame) {
-            $gameId = ($simGame->games_id_1 == $mainId ? $simGame->games_id_2 : $simGame->games_id_1);    //id of similar game
-            $similarGame = GamesHelpers::findGameByID($gameId);                     //find ActiveRecord of similar game
-            $similarGame = GamesHelpers::addTagsToGame($similarGame,$tagList);      //Add tags property to similar game record
-            array_push($simGames,$similarGame);
+        $simMovies = array();
+        foreach ($simMoviesID as $simMovie) {
+            $movieId = ($simMovie->movies_id_1 == $mainId ? $simMovie->movies_id_2 : $simMovie->movies_id_1);    //id of similar movie
+            $similarMovie = MoviesHelpers::findMovieByID($movieId);                     //find ActiveRecord of similar movie
+            $similarMovie = MoviesHelpers::addTagsToMovie($similarMovie,$tagList);      //Add tags property to similar movie record
+            array_push($simMovies,$similarMovie);
         }
 
-        //var_dump($simGamesID);
+        
+        $filteredMovies = array();
 
-        //we get the main games id and the tags to filter with
-        //send back similar games having at least one of those tags
+        foreach ($simMovies as $similarMovie) {
 
-        //$simGames = GamesHelpers::findSimilarGames($mainId);
-        $filteredGames = array();
-
-        //now make sure to filter these games to return only those with the specified tags
-        //var_dump(in_array($tagIds[12],array_column($simGames[0]->tags,'id')));
-       // var_dump($tagIds[10]);
-        foreach ($simGames as $similarGame) {
-            foreach ($tagIds as $tag) {
-                //var_dump($tag);
-               // var_dump($similarGame->tags);
-                //var_dump(in_array($tag,array_column($similarGame->tags, 'id')));
-                if(in_array($tag,array_column($similarGame->tags, 'id'))){
-                    array_push($filteredGames,$similarGame);
-                    break;
+            if (isset($tagIds) && !empty($tagIds)) {
+                foreach ($tagIds as $tag) {
+                    //var_dump($tag);
+                   // var_dump($similarMovie->tags);
+                    //var_dump(in_array($tag,array_column($similarMovie->tags, 'id')));
+                    if(in_array($tag,array_column($similarMovie->tags, 'id'))){
+                        array_push($filteredMovies,$similarMovie);
+                        break;
+                    }
                 }
+            } else {
+                $filteredMovies = $simMovies;
             }
         }
 
-        //var_dump($simGames[0]->tags[0]);
 
-        $simGames = $filteredGames;
-        //var_dump($simGames);
+        $simMovies = $filteredMovies;
+
+        //Only send back the top 10 similar movies
+        $simMovies = array_slice($simMovies,0,9,true);
         
-        echo $this->renderPartial('simList',array(
-            'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
+        return $this->renderPartial('simList',array(            //**********CHANGE simList to movie version******************
+            'simMovies' => $simMovies,    //Similar movies (ordered) (need full model/activerecord) + tags
         ));
     }
 
- */   
+    public function actionSuggest() {
+        $req = Yii::$app->request;
+
+        //var_dump('hella');
+        //$request = json_decode($req->post());
+
+        $mainId = $req->post('mainid');
+        $simIds = $req->post('simids');
+
+        //var_dump($mainId);
+
+        $query = MoviesMovies::find();
+        $simRecord = array('1');
+
+        foreach ($simIds as $similarSuggestion) {
+            $simRecord = $query 
+            -> where([
+                'movies_id_1'=>$similarSuggestion,
+                'movies_id_2'=>$mainId,
+            ])
+            -> orWhere([
+                'movies_id_1'=>$mainId,
+                'movies_id_2'=>$similarSuggestion,
+            ])
+            ->all();
+
+            if(empty($simRecord)){      //then we must add a new record
+                $newSuggestion = new MoviesMovies();
+                $newSuggestion->movies_id_1 = $mainId;
+                $newSuggestion->movies_id_2 = $similarSuggestion;
+                $newSuggestion->count      = '1';
+                $newSuggestion->save();    //save to database
+            }
+
+            else{                       //we update the count
+                $oldCount = $simRecord[0]->count;
+                $simRecord[0]->count = ++$oldCount;
+                $simRecord[0]->save();
+            }
+        }
+
+        //Remove everything after success as theyre just for testing purposes
+        echo json_encode(array('success'=>true,'simids'=>$simIds));
+
+    }  
 }
 
 ?>

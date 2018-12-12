@@ -377,7 +377,7 @@ class m181212_143336_mock_data_games extends Migration
     {
         echo "m181212_143336_mock_data_games cannot be reverted.\n";
 
-        return false;
+        return true;
     }
 
     /*

@@ -31,11 +31,12 @@ function submitSimilar() {
         simids: $('select[name=game]').val(),
     }
     $.ajax({
-        url: 'index.html',
+        url: '/index.php/games/suggest',
         type: 'POST',
         dataType: 'json',
         data: postData,
         success: function(result) {
+            console.log(result);
             renderPopupMessage("Thank you for suggesting a game!","You're Welcome!");
         },
         error: function(error) {
