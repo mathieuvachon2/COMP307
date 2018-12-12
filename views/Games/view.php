@@ -1,17 +1,17 @@
 <div class='content'>
     <div class='tag-bar'>
-        <div class='tag'>RPG</div>
-        <div class='tag'>RTS</div>
-        <div class='tag'>Action</div>
-        <div class='tag'>Horror</div>
-        <div class='tag'>Indie</div>
-        <div class='tag'>Adventure</div>
-        <div class='tag'>Casual</div>
-        <div class='tag'>Singleplayer</div>
-        <div class='tag'>Multiplayer</div>
+        <div class='tag' data-id=1>RPG</div>
+        <div class='tag' data-id=2>RTS</div>
+        <div class='tag' data-id=3>Action</div>
+        <div class='tag' data-id=4>Horror</div>
+        <div class='tag' data-id=5>Indie</div>
+        <div class='tag' data-id=6>Adventure</div>
+        <div class='tag' data-id=7>Casual</div>
+        <div class='tag' data-id=8>Singleplayer</div>
+        <div class='tag' data-id=9>Multiplayer</div>
     </div>
     <div class='similar-content'>
-        <div class='main item'>
+        <div class='main item' data-id=<?php echo $game->id?>>
             <div class='item-head'>
                 <div class='title'>
                     <h1><?php echo $game->title?></h1>

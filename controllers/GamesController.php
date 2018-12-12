@@ -40,7 +40,7 @@ class GamesController extends Controller {
         ));
     }
 
-    public function actionFilterByTag() {
+    public function actionFilterbytag() {
         
 
         $simGames = array();
