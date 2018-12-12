@@ -55,7 +55,25 @@
     }
 }
 
-/* Fixed size, change this later */
 .container-fluid {
-    height: 1000px;
+    height: 2000px;
+}
+
+#devName {
+    text-align: center;
+}
+
+#genreName {
+    text-align: center;
+}
+
+.gameName a {
+    color: darkslategrey;
+    text-align: center;
+}
+
+.gameImage img {
+    text-align: left;
+    height: 100px
+
 }
