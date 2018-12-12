@@ -12,7 +12,6 @@ use app\models\ContactForm;
 use app\models\movies\Movies;
 use app\models\movies\MoviesGenres;
 use app\models\movies\MoviesGames;
-use app\models\movies\MoviesGenres;
 /*
 use app\components\MoviesHelpers;    //Need one for movies
 */
