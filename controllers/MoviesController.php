@@ -9,15 +9,15 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-use app\models\games\Games;
-use app\models\games\GameGenres;
-use app\models\games\GamesGames;
-use app\models\games\GamesGenres;
+use app\models\movies\Movies;
+use app\models\movies\MoviesGenres;
+use app\models\movies\MoviesGames;
+use app\models\movies\MovieGenres;
+/*
+use app\components\MoviesHelpers;    //Need one for movies
+*/
 
-use app\components\GamesHelpers;    //helper functions for games
-
-
-class GamesController extends Controller {
+class MoviesController extends Controller {
 
    
 
@@ -25,12 +25,12 @@ class GamesController extends Controller {
         Yii::$app->view->registerCssFile('/css/gamesIndex.css');
         Yii::$app->view->registerJsFile('/js/index2.js');
 
-        $query = Games::find();
-        $games = $query -> orderBy('id') -> all();      //array of ActiveRecords for gamse
+        $query = Movies::find();
+        $movies = $query -> orderBy('id') -> all();      //array of ActiveRecords for movies
         
 
         //Get the genres as a list ordered by their ids
-        $query = GameGenres::find();
+        $query = MovieGenres::find();
         $genres = $query -> select('name')->orderBy('id') -> all();     //list of game genres ordered by id
         $genreList = array();
 
@@ -38,11 +38,15 @@ class GamesController extends Controller {
             array_push($genreList, $genreName->name);
 
         return $this->render('index',[
-            'games' => $games,
+            'movies' => $movies,
             'genreList' => $genreList,
         ]);
     }
 
+
+    /* Adapt to movies */
+
+    /*
     public function actionView($id) {
         Yii::$app->view->registerCssFile('/css/similar.css');
         Yii::$app->view->registerJsFile('/js/similar.js');
@@ -86,6 +90,7 @@ class GamesController extends Controller {
             -> orderBy('id')
             -> all();
 
+
         return $this->render('view',array(
             'game' => $game,            //The current game (need full model/activerecord) + tags
             'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
@@ -96,6 +101,7 @@ class GamesController extends Controller {
 
     public function actionFilterbytag() {
         // use $_POST to get post data
+
         $simGames = array();
 
         $req = Yii::$app->request;
@@ -126,81 +132,40 @@ class GamesController extends Controller {
             array_push($simGames,$similarGame);
         }
 
-        
+        //var_dump($simGamesID);
+
+        //we get the main games id and the tags to filter with
+        //send back similar games having at least one of those tags
+
+        //$simGames = GamesHelpers::findSimilarGames($mainId);
         $filteredGames = array();
 
+        //now make sure to filter these games to return only those with the specified tags
+        //var_dump(in_array($tagIds[12],array_column($simGames[0]->tags,'id')));
+       // var_dump($tagIds[10]);
         foreach ($simGames as $similarGame) {
-
-            if (isset($tagIds) && !empty($tagIds)) {
-                foreach ($tagIds as $tag) {
-                    //var_dump($tag);
-                   // var_dump($similarGame->tags);
-                    //var_dump(in_array($tag,array_column($similarGame->tags, 'id')));
-                    if(in_array($tag,array_column($similarGame->tags, 'id'))){
-                        array_push($filteredGames,$similarGame);
-                        break;
-                    }
+            foreach ($tagIds as $tag) {
+                //var_dump($tag);
+               // var_dump($similarGame->tags);
+                //var_dump(in_array($tag,array_column($similarGame->tags, 'id')));
+                if(in_array($tag,array_column($similarGame->tags, 'id'))){
+                    array_push($filteredGames,$similarGame);
+                    break;
                 }
-            } else {
-                $filteredGames = $simGames;
             }
         }
 
+        //var_dump($simGames[0]->tags[0]);
 
         $simGames = $filteredGames;
+        //var_dump($simGames);
         
-        return $this->renderPartial('simList',array(
+        echo $this->renderPartial('simList',array(
             'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
         ));
     }
 
-    public function actionSuggest() {
-        $req = Yii::$app->request;
-
-        //var_dump('hella');
-        //$request = json_decode($req->post());
-
-        $mainId = $req->post('mainid');
-        $simIds = $req->post('simids');
-
-        //var_dump($mainId);
-
-        $query = GamesGames::find();
-        $simRecord = array('1');
-
-        foreach ($simIds as $similarSuggestion) {
-            $simRecord = $query 
-            -> where([
-                'games_id_1'=>$similarSuggestion,
-                'games_id_2'=>$mainId,
-            ])
-            -> orWhere([
-                'games_id_1'=>$mainId,
-                'games_id_2'=>$similarSuggestion,
-            ])
-            ->all();
-
-            if(empty($simRecord)){      //then we must add a new record
-                $newSuggestion = new GamesGames();
-                $newSuggestion->games_id_1 = $mainId;
-                $newSuggestion->games_id_2 = $similarSuggestion;
-                $newSuggestion->count      = '1';
-                $newSuggestion->save();    //save to database
-            }
-
-            else{                       //we update the count
-                $oldCount = $simRecord[0]->count;
-                $simRecord[0]->count = ++$oldCount;
-                $simRecord[0]->save();
-            }
-        }
-
-        //Remove everything after success as theyre just for testing purposes
-        echo json_encode(array('success'=>true,'simRecord'=>$simRecord[0]->count,'simids'=>$simIds,'oldCount'=>$oldCount));
-
-    }
-
-    
+ */   
 }
 
 ?>
