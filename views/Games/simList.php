@@ -3,12 +3,12 @@
 <div class='suggestion item'>
     <div class='item-head'>
         <div class='title'>
-            <h1><?php echo $similar->title?></h1>
+            <h1><?php echo $similar->title ?></h1>
             <h2>(<?php echo $similar->year ?>)</h2>
         </div>
     </div>
     <div class='image'>
-        <img src='https://upload.wikimedia.org/wikipedia/en/d/d5/Diablo_II_Coverart.png'/>
+        <img src='<?php //echo $similar->image ?>'/>
     </div>
     <div class='description'>
         <p><?php echo $similar->description ?></p>

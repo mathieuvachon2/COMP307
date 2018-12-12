@@ -10,7 +10,7 @@ $(document).ready(function() {
             tagArray[$(this).data('id')] = $(this).data('id');
         })
         postData = {
-            main_id: $('.item.main').data('id'),
+            main_id: $('.main.item').data('id'),
             tag_ids: tagArray,
         }
         $.ajax({

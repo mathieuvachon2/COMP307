@@ -1,14 +1,8 @@
 <div class='content'>
     <div class='tag-bar'>
-        <div class='tag' data-id=1>RPG</div>
-        <div class='tag' data-id=2>RTS</div>
-        <div class='tag' data-id=3>Action</div>
-        <div class='tag' data-id=4>Horror</div>
-        <div class='tag' data-id=5>Indie</div>
-        <div class='tag' data-id=6>Adventure</div>
-        <div class='tag' data-id=7>Casual</div>
-        <div class='tag' data-id=8>Singleplayer</div>
-        <div class='tag' data-id=9>Multiplayer</div>
+        <?php foreach ($tagList as $tag) { ?>
+            <div class='tag' data-id=<?php echo $tag->id ?>><?php echo $tag->name ?></div>
+        <?php } ?>
     </div>
     <div class='similar-content'>
         <div class='main item' data-id=<?php echo $game->id?>>
@@ -19,7 +13,7 @@
                 </div>
             </div>
             <div class='image'>
-                <img src='https://upload.wikimedia.org/wikipedia/en/d/d5/Diablo_II_Coverart.png'/>
+                <img src='<?php //echo $game->image ?>'/>
             </div>
             <div class='description'>
                 <p><?php echo $game->description ?></p>

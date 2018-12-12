@@ -26,26 +26,27 @@ class GamesController extends Controller {
         Yii::$app->view->registerJsFile('/js/similar.js');
 
         //The specific game we're looking at
-        $game = Games::find()->where(['id'=>$id])->one();
+        $game = new Games();
 
         //Similar games list
-        $simGames = Games::find()->all();
+        $simGames = array();
         
-        //Entire game list
-        $gameList = Games::find()->all();
+        $gameList = array();
+        $tagList = array();
         return $this->render('view',array(
-            'game' => $game,
-            'simGames' => $simGames,
-            'gameList' => $gameList,
+            'game' => $game,            //The current game (need full model/activerecord) + tags
+            'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
+            'gameList' => $gameList,    //Entire game list (only need ID + Title)
+            'tagList' => $tagList,      //Entire tag list (id + name),
         ));
     }
 
     public function actionFilterbytag() {
-        
+        // use $_POST to get post data
 
         $simGames = array();
         echo $this->renderPartial('simList',array(
-            'simGames' => $simGames,
+            'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
         ));
     }
 }
