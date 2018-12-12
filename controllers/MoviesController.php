@@ -165,7 +165,7 @@ class MoviesController extends Controller {
         ));
     }
 
-    
+ */   
 }
-*/
+
 ?>
