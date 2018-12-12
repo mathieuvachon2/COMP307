@@ -1,4 +1,3 @@
-
     <div class = "container-fluid">
         <div class = "row py-5">
             <div class="col">
@@ -6,8 +5,11 @@
             </div>
         </div>
 
-        <!-- Search by developer-->
+        
         <div class = "row pt-5">
+        <div class="col-sm-6">   
+        <!-- Search by developer-->
+        <div class = "row">
             <div class="col">
                 <p>Browse games depending on the developer</p>
             </div>
@@ -97,7 +99,96 @@
                 </div>
             </div>
         </div>
+
+        </div>
             
+            <!-- This is where you want the games to pop up by developer or by genres -->
+            <div class="col-sm-6">
+                <!-- By developer -->
+                <div class="devDisplay">
+                    <div class="row pt-3" id="devName">
+                        <h2>Blizzard North (normally only after Ajax call)</h2>
+                    </div>
+                    <div class="gameName">
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-10">
+                        <h3><a href="views/1"> Diablo 1 </a></h3>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="gameImage">
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-10">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/d/d5/Diablo_II_Coverart.png">
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="gameName">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-10">
+                                <h3><a href="views/1"> Diablo 2 </a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gameImage">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-10">
+                                <img src="https://upload.wikimedia.org/wikipedia/en/d/d5/Diablo_II_Coverart.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- By genres -->
+                <div class="genreDisplay">
+                    <div class="row pt-3" id="genreName">
+                        <div class="col-5"></div>
+                        <div class="col-2">
+                        <h2>(by genre)</h2>
+                        </div>
+                        <div class="col-5"></div>
+                    </div>
+                    <div class="gameName">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-10">
+                                <h3><a href="views/1"> Diablo 1 </a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gameImage">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-10">
+                                <img src="https://upload.wikimedia.org/wikipedia/en/d/d5/Diablo_II_Coverart.png">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gameName">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-10">
+                                <h3><a href="views/1"> Diablo 2 </a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gameImage">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-10">
+                                <img src="https://upload.wikimedia.org/wikipedia/en/d/d5/Diablo_II_Coverart.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
