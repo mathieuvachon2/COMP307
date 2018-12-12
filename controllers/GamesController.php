@@ -11,9 +11,15 @@ use app\models\ContactForm;
 
 use app\models\Games\Games;
 use app\models\Games\GameGenres;
+use app\models\Games\GamesGames;
+use app\models\Games\GamesGenres;
+
+use app\components\GamesHelpers;    //helper functions for games
 
 
 class GamesController extends Controller {
+
+   
 
     public function actionIndex() {
         Yii::$app->view->registerCssFile('/css/gamesIndex.css');
@@ -42,13 +48,45 @@ class GamesController extends Controller {
         Yii::$app->view->registerJsFile('/js/similar.js');
 
         //The specific game we're looking at
-        $game = new Games();
+        $query = Games::find();
+        $game = $query -> where([
+            'id' => $id,
+        ])->one();
 
-        //Similar games list
+        //Get the list of all tags
+        $query = GameGenres::find();
+        $tagList = $query -> orderBy('id') -> all();
+
+        $game = GamesHelpers::addTagsToGame($game,$tagList);   //add the tags to this game object
+
+        //Get similar games to this game, and order them by descending count.
+        $query = GamesGames::find();
+        $simGamesID = $query->where([
+            'games_id_1' => $id,
+            ])->orWhere([
+            'games_id_2' => $id,
+        ]) -> orderBy([
+            'count' => SORT_DESC,
+        ]) -> all();
+
         $simGames = array();
+        foreach ($simGamesID as $simGame) {
+            $gameId = ($simGame->games_id_1 == $id ? $simGame->games_id_2 : $simGame->games_id_1);    //id of similar game
+            $similarGame = GamesHelpers::findGameByID($gameId);                     //find ActiveRecord of similar game
+            $similarGame = GamesHelpers::addTagsToGame($similarGame,$tagList);      //Add tags property to similar game record
+            array_push($simGames,$similarGame);
+        }
         
-        $gameList = array();
-        $tagList = array();
+        $query = Games::find();
+        $gameList = $query 
+            -> select([
+                'id',
+                'title',
+            ]) 
+            -> orderBy('id')
+            -> all();
+
+
         return $this->render('view',array(
             'game' => $game,            //The current game (need full model/activerecord) + tags
             'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
@@ -65,6 +103,8 @@ class GamesController extends Controller {
             'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
         ));
     }
+
+    
 }
 
 ?>

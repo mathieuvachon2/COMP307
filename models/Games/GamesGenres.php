@@ -4,7 +4,7 @@ namespace app\models\Games;
 
 use yii\db\ActiveRecord;
 
-class Games extends ActiveRecord
+class GamesGenres extends ActiveRecord
 {
-    public $tags = array();
+    
 }
