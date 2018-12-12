@@ -5,7 +5,24 @@ $(document).ready(function() {
         } else {
             $(this).addClass('selected');
         }
+        tagArray = {};
+        $('.tag-bar .tag.selected').each(function() {
+            tagArray[$(this).data('id')] = $(this).data('id');
+        })
+        postData = {
+            main_id: $('.main.item').data('id'),
+            tag_ids: tagArray,
+        }
+        $.ajax({
+            url: '/index.php/games/filterbytag',
+            type: 'POST',
+            data: postData,
+            success: function(result) {
+                $('.sim-list').empty().append(result);
+            }
+        })
     });
+    
 });
 
 function submitSimilar() {

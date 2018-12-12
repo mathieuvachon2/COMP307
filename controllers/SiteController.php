@@ -68,8 +68,8 @@ class SiteController extends Controller
         /*Get an array of games sorted by their ids*/
         
         Yii::$app->view->registerCssFile('css/index.css');
-        return $this->render('index', [
-        ]);
+
+        return $this->render('index');
     }
 
     /**
