@@ -45,7 +45,7 @@ class GamesController extends Controller {
 
     public function actionView($id) {
         Yii::$app->view->registerCssFile('/css/similar.css');
-        Yii::$app->view->registerJsFile('/js/similar.js');
+        Yii::$app->view->registerJsFile('/js/gameView.js');
 
         //The specific game we're looking at
         $query = Games::find();

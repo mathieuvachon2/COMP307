@@ -5,28 +5,28 @@
         <?php } ?>
     </div>
     <div class='similar-content'>
-        <div class='main item' data-id=<?php echo $game->id?>>
+        <div class='main item' data-id=<?php echo $movie->id?>>
             <div class='item-head'>
                 <div class='title'>
-                    <h1><?php echo $game->title?></h1>
-                    <h2><?php echo "(".$game->year.")"?></h2>
+                    <h1><?php echo $movie->title?></h1>
+                    <h2>(<?php echo $movie->year?>)</h2>
                 </div>
             </div>
             <div class='image'>
-                <img src='<?php echo $game->image_url ?>'/>
+                <img src='<?php echo $movie->image_url ?>'/>
             </div>
             <div class='description'>
-                <p><?php echo $game->description ?></p>
+                <p><?php echo $movie->description ?></p>
             </div>
             <div class='right-bar'>
-                <?php foreach ($game->tags as $gTag) { ?>
+                <?php foreach ($movie->tags as $gTag) { ?>
                 <div class='tag'><?php echo $gTag->name ?></div>
                 <?php } ?>
             </div>
         </div>
         <div class='sim-list'>
             <?php echo Yii::$app->controller->renderPartial('simList',array(
-                'simGames' => $simGames,
+                'simMovies' => $simMovies,
             )); ?>
         </div>
     </div>
@@ -34,10 +34,10 @@
         <div class='title'>
             Suggest Similarity
         </div>
-        <input type='hidden' name='curgame' value='<?php echo $game->id ?>'></input>
+        <input type='hidden' name='curmovie' value='<?php echo $movie->id ?>'></input>
         <div class="form-group">
-            <select multiple class='form-control' name="game">
-                <?php foreach ($gameList as $option) { ?>
+            <select multiple class='form-control' name="movie">
+                <?php foreach ($movieList as $option) { ?>
                     <option value='<?php echo $option->id ?>'><?php echo $option->title ?></option>
                 <?php } ?>
             </select>
