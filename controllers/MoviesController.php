@@ -46,7 +46,7 @@ class MoviesController extends Controller {
     
     public function actionView($id) {
         Yii::$app->view->registerCssFile('/css/similar.css');         //*******CHANGE THIS IF NEEDED********
-        Yii::$app->view->registerJsFile('/js/similar.js');
+        Yii::$app->view->registerJsFile('/js/movieView.js');
 
         //The specific movie we're looking at
         $query = Movies::find();
