@@ -17,15 +17,20 @@ class GamesController extends Controller {
     public function actionIndex() {
         Yii::$app->view->registerCssFile('/css/gamesIndex.css');
         $query = Games::find();
-        $games = $query -> orderBy('id') -> all();
+        $games = $query -> orderBy('id') -> all();      //array of ActiveRecords for gamse
 
         //Get the genres as a list ordered by their ids
         $query = GameGenres::find();
-        $genres = $query -> orderBy('id') -> all();
+        $genres = $query -> select('name')->orderBy('id') -> all();     //list of game genres ordered by id
+        $genreList = array();
 
-        return $this->render('index',array(
-            //PLACE VARIABLES HERE
-        ));
+        foreach($genres as $genreName)
+            array_push($genreList, $genreName->name);
+
+        return $this->render('index',[
+            'games' => $games,
+            'genreList' => $genreList,
+        ]);
     }
 
     public function actionView($id) {
