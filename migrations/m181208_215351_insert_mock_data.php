@@ -14,42 +14,52 @@ class m181208_215351_insert_mock_data extends Migration
     {
         //insert movie genres
 
+        //1
         $this->insert('movie_genres', [
             'name' => 'horror',
         ]);
 
+        //2
         $this->insert('movie_genres', [
             'name' => 'comedy',
         ]);
 
+        //3
         $this->insert('movie_genres', [
             'name' => 'adventure',
         ]);
 
+        //4
         $this->insert('movie_genres', [
             'name' => 'thriller',
         ]);
 
+        //5
         $this->insert('movie_genres', [
             'name' => 'action',
         ]);
 
+        //6
         $this->insert('movie_genres', [
             'name' => 'sports',
         ]);
 
+        //7
         $this->insert('movie_genres', [
             'name' => 'mystery',
         ]);
 
+        //8
         $this->insert('movie_genres', [
             'name' => 'drama',
         ]);
 
+        //9
         $this->insert('movie_genres', [
             'name' => 'crime',
         ]);
 
+        //10
         $this->insert('movie_genres', [
             'name' => 'animation',
         ]);
