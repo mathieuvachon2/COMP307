@@ -3,7 +3,7 @@
 namespace app\models\games;
 
 use yii\db\ActiveRecord;
-use app\models\games\Studios;
+use app\models\Games\Studios;
 
 
 class Games extends ActiveRecord

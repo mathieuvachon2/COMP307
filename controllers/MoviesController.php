@@ -9,11 +9,11 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-use app\models\movies\Movies;
-use app\models\movies\MoviesGenres;
-use app\models\movies\MoviesMovies;
-use app\models\movies\MovieGenres;
-use app\models\movies\People;
+use app\models\Movies\Movies;
+use app\models\Movies\MoviesGenres;
+use app\models\Movies\MoviesMovies;
+use app\models\Movies\MovieGenres;
+use app\models\Movies\People;
 
 use app\components\MoviesHelpers;    //Need one for movies
 

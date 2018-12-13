@@ -1,10 +1,10 @@
 <?php
 namespace app\components;
 
-use app\models\games\Games;
-use app\models\games\GameGenres;
-use app\models\games\GamesGames;
-use app\models\games\GamesGenres;
+use app\models\Games\Games;
+use app\models\Games\GameGenres;
+use app\models\Games\GamesGames;
+use app\models\Games\GamesGenres;
 
 class GamesHelpers
 {

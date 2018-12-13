@@ -9,11 +9,11 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-use app\models\games\Games;
-use app\models\games\GameGenres;
-use app\models\games\GamesGames;
-use app\models\games\GamesGenres;
-use app\models\games\Studios;
+use app\models\Games\Games;
+use app\models\Games\GameGenres;
+use app\models\Games\GamesGames;
+use app\models\Games\GamesGenres;
+use app\models\Games\Studios;
 
 use app\components\GamesHelpers;    //helper functions for games
 
