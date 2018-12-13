@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\games;
+namespace app\models\Games;
 
 use yii\db\ActiveRecord;
 use app\models\Games\Studios;

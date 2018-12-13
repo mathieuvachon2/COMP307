@@ -1,10 +1,10 @@
 <?php
 namespace app\components;
 
-use app\models\movies\Movies;
-use app\models\movies\MovieGenres;
-use app\models\movies\MoviesMovies;
-use app\models\movies\MoviesGenres;
+use app\models\Movies\Movies;
+use app\models\Movies\MovieGenres;
+use app\models\Movies\MoviesMovies;
+use app\models\Movies\MoviesGenres;
 
 class MoviesHelpers
 {

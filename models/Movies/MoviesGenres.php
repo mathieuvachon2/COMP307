@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\movies;
+namespace app\models\Movies;
 
 use yii\db\ActiveRecord;
 
