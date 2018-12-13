@@ -193,7 +193,7 @@ class MoviesController extends Controller {
         }
 
         //Remove everything after success as theyre just for testing purposes
-        echo json_encode(array('success'=>true,'simids'=>$simIds));
+        return json_encode(array('success'=>true,'simids'=>$simIds));
 
     }  
 

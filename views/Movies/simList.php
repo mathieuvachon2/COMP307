@@ -9,11 +9,18 @@
     </div>
     <div class='image'>
         <img src='<?php echo $similar->image_url ?>'/>
+        <div class='right-bar mobile'>
+        <?php foreach ($similar->tags as $gTag) { ?>
+        <div class='tag'><?php echo $gTag->genre->name ?></div>
+        <?php } ?>
+        <div class="sim-rank <?php echo ($count==1 ? "first" : ($count==2 ? "second" : ($count==3 ? "third" : "")))?>"><div class='nb'><?php echo $count?></div></div>
     </div>
+    </div>
+    
     <div class='description'>
         <p><?php echo $similar->description ?></p>
     </div>
-    <div class='right-bar'>
+    <div class='right-bar desktop'>
         <?php foreach ($similar->tags as $gTag) { ?>
         <div class='tag'><?php echo $gTag->genre->name ?></div>
         <?php } ?>

@@ -84,6 +84,9 @@ class GamesController extends Controller {
             -> orderBy('id')
             -> all();
 
+        $simGames = array_slice($simGames,0,9,true);
+
+
         return $this->render('view',array(
             'game' => $game,            //The current game (need full model/activerecord) + tags
             'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
@@ -189,7 +192,7 @@ class GamesController extends Controller {
         }
 
         //Remove everything after success as theyre just for testing purposes
-        echo json_encode(array('success'=>true,'simids'=>$simIds));
+        return json_encode(array('success'=>true,'simids'=>$simIds));
 
     }
 

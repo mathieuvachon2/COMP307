@@ -21,8 +21,11 @@
 .game-image {
     width: 50px;
 }
-table.item-table {
+.filtered-list {
     width: 50%;
+}
+table.item-table {
+    width: 100%;
 }
 table.item-table tr {
     padding: 5px;

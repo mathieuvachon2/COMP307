@@ -1,8 +1,15 @@
 <div class='content'>
-    <div class='tag-bar'>
+    <div class='tag-bar desktop'>
         <?php foreach ($tagList as $tag) { ?>
             <div class='tag' data-id=<?php echo $tag->id ?>><?php echo $tag->name ?></div>
         <?php } ?>
+    </div>
+    <div class='tag-bar mobile'>
+        <select multiple class='tag-select' name='tags' onchange='selecttag()'>
+        <?php foreach ($tagList as $tag) { ?>
+            <option value='<?php echo $tag->id ?>'><?php echo $tag->name ?></div>
+        <?php } ?>
+        </select>
     </div>
     <div class='similar-content'>
         <div class='main item' data-id=<?php echo $movie->id?>>
@@ -14,11 +21,16 @@
             </div>
             <div class='image'>
                 <img src='<?php echo $movie->image_url ?>'/>
+                <div class='right-bar mobile'>
+                    <?php foreach ($movie->tags as $gTag) { ?>
+                    <div class='tag'><?php echo $gTag->genre->name ?></div>
+                    <?php } ?>
+                </div>
             </div>
             <div class='description'>
                 <p><?php echo $movie->description ?></p>
             </div>
-            <div class='right-bar'>
+            <div class='right-bar desktop'>
                 <?php foreach ($movie->tags as $gTag) { ?>
                 <div class='tag'><?php echo $gTag->genre->name ?></div>
                 <?php } ?>
