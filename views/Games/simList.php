@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class='image'>
-        <img src='<?php echo $similar->image_url ?>'/>
+        <a href='/index.php/games/view/<?php echo $similar->id?>'><img src='<?php echo $similar->image_url ?>'/></a>
         <div class='right-bar mobile'>
         <?php foreach ($similar->tags as $gTag) { ?>
         <div class='tag'><?php echo $gTag->genre->name ?></div>

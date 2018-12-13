@@ -81,6 +81,7 @@ class GamesController extends Controller {
                 'id',
                 'title',
             ]) 
+            -> where('id != '.$id)
             -> orderBy('id')
             -> all();
 

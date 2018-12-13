@@ -84,6 +84,7 @@ class MoviesController extends Controller {
                 'title',
             ]) 
             -> orderBy('id')
+            -> where('id != '.$id)
             -> with(array('director','tags'))
             -> all();
 
