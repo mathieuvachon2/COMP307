@@ -1,5 +1,6 @@
 .container-fluid {
     background-color: rgb(200, 200, 200);
+    min-height: 100%;
 }
 
 .scrollDesktop .select{
@@ -8,6 +9,11 @@
 }
 .scrollMobile {
     display: none;
+}
+.container-fluid .col-sm-6 {
+    flex: none;
+    width: 30%;
+    max-width: unset;
 }
 /* To set up a checkbox inside a dropdown */
 
@@ -22,7 +28,7 @@
     width: 50px;
 }
 .filtered-list {
-    width: 50%;
+    width: 70%;
 }
 table.item-table {
     width: 100%;
@@ -78,7 +84,6 @@ table.item-table td.info {
 }
 
 .container-fluid {
-    height: 4000px;
 }
 
 #devName {

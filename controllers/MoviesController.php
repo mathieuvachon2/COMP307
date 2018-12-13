@@ -199,8 +199,16 @@ class MoviesController extends Controller {
 
     public function actionSearch() {
 
-        $director_id = $_POST['director_id'];
-        $tag_ids = $_POST['genre_ids'];
+        if (isset($_POST['director_id'])) {
+            $director_id = $_POST['director_id'];
+        } else {
+            $studio = null;
+        }
+        if (isset($_POST['genre_ids'])) {
+            $tag_ids = $_POST['genre_ids'];
+        } else {
+            $tag_ids = null;
+        }
         $movies = Movies::find();
         if (!empty($director_id)) {
             $movies->where(array('director_id' => $director_id));

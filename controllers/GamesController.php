@@ -198,8 +198,17 @@ class GamesController extends Controller {
 
     public function actionSearch() {
 
-        $studio_id = $_POST['studio_id'];
-        $tag_ids = $_POST['genre_ids'];
+        if (isset($_POST['studio_id'])) {
+            $studio_id = $_POST['studio_id'];
+        } else {
+            $studio = null;
+        }
+        if (isset($_POST['genre_ids'])) {
+            $tag_ids = $_POST['genre_ids'];
+        } else {
+            $tag_ids = null;
+        }
+
         $games = Games::find();
         if (!empty($studio_id)) {
             $games->where(array('studio_id' => $studio_id));
