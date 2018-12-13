@@ -13,6 +13,7 @@ use app\models\games\Games;
 use app\models\games\GameGenres;
 use app\models\games\GamesGames;
 use app\models\games\GamesGenres;
+use app\models\games\Studios;
 
 use app\components\GamesHelpers;    //helper functions for games
 
@@ -31,15 +32,15 @@ class GamesController extends Controller {
 
         //Get the genres as a list ordered by their ids
         $query = GameGenres::find();
-        $genres = $query -> select('name')->orderBy('id') -> all();     //list of game genres ordered by id
-        $genreList = array();
+        $genreList = $query ->orderBy('id') -> all();     //list of game genres ordered by id
 
-        foreach($genres as $genreName)
-            array_push($genreList, $genreName->name);
+        $query = Studios::find();
+        $studios = $query ->orderBy('id') -> all();
 
         return $this->render('index',[
             'games' => $games,
             'genreList' => $genreList,
+            'studios' => $studios,
         ]);
     }
 
@@ -57,8 +58,6 @@ class GamesController extends Controller {
         $query = GameGenres::find();
         $tagList = $query -> orderBy('id') -> all();
 
-        $game = GamesHelpers::addTagsToGame($game,$tagList);   //add the tags to this game object
-
         //Get similar games to this game, and order them by descending count.
         $query = GamesGames::find();
         $simGamesID = $query->where([
@@ -73,7 +72,6 @@ class GamesController extends Controller {
         foreach ($simGamesID as $simGame) {
             $gameId = ($simGame->games_id_1 == $id ? $simGame->games_id_2 : $simGame->games_id_1);    //id of similar game
             $similarGame = GamesHelpers::findGameByID($gameId);                     //find ActiveRecord of similar game
-            $similarGame = GamesHelpers::addTagsToGame($similarGame,$tagList);      //Add tags property to similar game record
             array_push($simGames,$similarGame);
         }
         
@@ -122,32 +120,27 @@ class GamesController extends Controller {
         foreach ($simGamesID as $simGame) {
             $gameId = ($simGame->games_id_1 == $mainId ? $simGame->games_id_2 : $simGame->games_id_1);    //id of similar game
             $similarGame = GamesHelpers::findGameByID($gameId);                     //find ActiveRecord of similar game
-            $similarGame = GamesHelpers::addTagsToGame($similarGame,$tagList);      //Add tags property to similar game record
             array_push($simGames,$similarGame);
         }
 
-        
-        $filteredGames = array();
-
-        foreach ($simGames as $similarGame) {
+        foreach ($simGames as $key=>$similarGame) {
 
             if (isset($tagIds) && !empty($tagIds)) {
+                $gameGenreIds = array();
+                foreach ($similarGame->tags as $tag) {
+                    array_push($gameGenreIds,$tag->game_genres_id);
+                }
                 foreach ($tagIds as $tag) {
-                    //var_dump($tag);
-                   // var_dump($similarGame->tags);
-                    //var_dump(in_array($tag,array_column($similarGame->tags, 'id')));
-                    if(in_array($tag,array_column($similarGame->tags, 'id'))){
-                        array_push($filteredGames,$similarGame);
+                    if (!in_array($tag,$gameGenreIds)) {
+                        unset($simGames[$key]);
                         break;
                     }
                 }
-            } else {
-                $filteredGames = $simGames;
             }
         }
 
+        $simGames = array_slice($simGames,0,9,true);
 
-        $simGames = $filteredGames;
         
         return $this->renderPartial('simList',array(
             'simGames' => $simGames,    //Similar games (ordered) (need full model/activerecord) + tags
@@ -198,6 +191,28 @@ class GamesController extends Controller {
         //Remove everything after success as theyre just for testing purposes
         echo json_encode(array('success'=>true,'simids'=>$simIds));
 
+    }
+
+    public function actionSearch() {
+
+        $studio_id = $_POST['studio_id'];
+        $tag_ids = $_POST['genre_ids'];
+        $games = Games::find();
+        if (!empty($studio_id)) {
+            $games->where(array('studio_id' => $studio_id));
+        }
+        $genres = GamesGenres::find()->with(array('genre'))->all();
+        $games = $games->with(array('studio','tags'))->all();
+        if (!empty($tag_ids)) {
+            foreach ($games as $key=>$game) {
+                foreach ($game->tags as $tag) {
+                    
+                }
+            }
+        }
+        return $this->renderPartial('table',array(
+            'games' => $games,
+        ));
     }
 
     

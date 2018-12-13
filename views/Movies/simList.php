@@ -15,7 +15,7 @@
     </div>
     <div class='right-bar'>
         <?php foreach ($similar->tags as $gTag) { ?>
-        <div class='tag'><?php echo $gTag->name ?></div>
+        <div class='tag'><?php echo $gTag->genre->name ?></div>
         <?php } ?>
         <div class="sim-rank <?php echo ($count==1 ? "first" : ($count==2 ? "second" : ($count==3 ? "third" : "")))?>"><div class='nb'><?php echo $count?></div></div>
     </div>

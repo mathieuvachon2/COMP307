@@ -20,7 +20,7 @@
             </div>
             <div class='right-bar'>
                 <?php foreach ($movie->tags as $gTag) { ?>
-                <div class='tag'><?php echo $gTag->name ?></div>
+                <div class='tag'><?php echo $gTag->genre->name ?></div>
                 <?php } ?>
             </div>
         </div>

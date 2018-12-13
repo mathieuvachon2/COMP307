@@ -12,7 +12,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 use app\models\Games\Games;
-use app\models\Movies;
+use app\models\Movies\Movies;
 
 
 AppAsset::register($this);
@@ -66,10 +66,10 @@ AppAsset::register($this);
             </div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="<?php echo Url::to('/games/index')?>">Video Games</a>
+                    <a class="nav-link px-3" href="<?php echo Url::to('/index.php/games/index')?>">Video Games</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="<?php echo Url::to('/movies/index')?>">Movies</a>
+                    <a class="nav-link px-3" href="<?php echo Url::to('/index.php/movies/index')?>">Movies</a>
                 </li>
             </ul>
         </nav>
@@ -93,8 +93,8 @@ AppAsset::register($this);
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="similar.html">Video Games</a>
-                    <a class="dropdown-item" href="similar.html">Movies</a>
+                    <a class="dropdown-item" href="/index.php/games/index">Video Games</a>
+                    <a class="dropdown-item" href="/index.php/movies/index">Movies</a>
                 </div>
             </div>
         </nav>

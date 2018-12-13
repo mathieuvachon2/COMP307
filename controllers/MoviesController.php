@@ -58,8 +58,6 @@ class MoviesController extends Controller {
         $query = MovieGenres::find();
         $tagList = $query -> orderBy('id') -> all();
 
-        $movie = MoviesHelpers::addTagsToMovie($movie,$tagList);   //add the tags to this movie object
-
         //Get similar movies to this movie, and order them by descending count.
         $query = MoviesMovies::find();
         $simMoviesID = $query->where([
@@ -74,7 +72,6 @@ class MoviesController extends Controller {
         foreach ($simMoviesID as $simMovie) {
             $movieId = ($simMovie->movies_id_1 == $id ? $simMovie->movies_id_2 : $simMovie->movies_id_1);    //id of similar movie
             $similarMovie = MoviesHelpers::findMovieByID($movieId);                     //find ActiveRecord of similar movie
-            $similarMovie = MoviesHelpers::addTagsToMovie($similarMovie,$tagList);      //Add tags property to similar movie record
             array_push($simMovies,$similarMovie);
         }
         //Only send back the top 10 similar movies
@@ -87,6 +84,7 @@ class MoviesController extends Controller {
                 'title',
             ]) 
             -> orderBy('id')
+            -> with(array('director','tags'))
             -> all();
 
 
@@ -126,32 +124,24 @@ class MoviesController extends Controller {
         foreach ($simMoviesID as $simMovie) {
             $movieId = ($simMovie->movies_id_1 == $mainId ? $simMovie->movies_id_2 : $simMovie->movies_id_1);    //id of similar movie
             $similarMovie = MoviesHelpers::findMovieByID($movieId);                     //find ActiveRecord of similar movie
-            $similarMovie = MoviesHelpers::addTagsToMovie($similarMovie,$tagList);      //Add tags property to similar movie record
             array_push($simMovies,$similarMovie);
         }
 
-        
-        $filteredMovies = array();
-
-        foreach ($simMovies as $similarMovie) {
+        foreach ($simMovies as $key=>$similarMovie) {
 
             if (isset($tagIds) && !empty($tagIds)) {
+                $movieGenreIds = array();
+                foreach ($similarMovie->tags as $tag) {
+                    array_push($movieGenreIds,$tag->movie_genres_id);
+                }
                 foreach ($tagIds as $tag) {
-                    //var_dump($tag);
-                   // var_dump($similarMovie->tags);
-                    //var_dump(in_array($tag,array_column($similarMovie->tags, 'id')));
-                    if(in_array($tag,array_column($similarMovie->tags, 'id'))){
-                        array_push($filteredMovies,$similarMovie);
+                    if (!in_array($tag,$movieGenreIds)) {
+                        unset($simMovies[$key]);
                         break;
                     }
                 }
-            } else {
-                $filteredMovies = $simMovies;
             }
         }
-
-
-        $simMovies = $filteredMovies;
 
         //Only send back the top 10 similar movies
         $simMovies = array_slice($simMovies,0,9,true);

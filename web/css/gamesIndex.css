@@ -18,7 +18,22 @@
 .selectBox {
     position: relative;
 }
-
+.game-image {
+    width: 50px;
+}
+table.item-table {
+    width: 50%;
+}
+table.item-table tr {
+    padding: 5px;
+    border: 1px solid black;
+    height: 50px;
+    font-size: 16px;
+}
+.dropdown-item.selected, .dropdown-item.selected:hover {
+    background: rgb(60,60,60);
+    color: white;
+}
 .selectBox select {
     width: 100%;
     font-weight: bold;
