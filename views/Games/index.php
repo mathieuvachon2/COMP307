@@ -11,7 +11,7 @@
         <!-- Search by developer-->
         <div class = "row">
             <div class="col">
-                <p>Browse games depending on the developer</p>
+                <h2>Browse games depending on the developer</h2>
             </div>
         </div>
 

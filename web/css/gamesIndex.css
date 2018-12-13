@@ -16,7 +16,19 @@
     max-width: unset;
 }
 /* To set up a checkbox inside a dropdown */
-
+.container-fluid .dropdown input[type=text] {
+    background: rgb(60,60,60);
+    padding: 0px 5px;
+    border: 1px solid black;
+    font-size: 18px;
+    border-radius: 5px;
+    color: white;
+    width: 100%;
+    max-width: 400px;
+}
+.container-fluid .dropdown {
+    margin-bottom: 5px;
+}
 .multiselect {
     width: 200px;
 }
@@ -75,15 +87,13 @@ table.item-table td.info {
 
 /* To separate desktop and mobile */
 @media only screen and (max-width: 768px) {
-    .scrollMobile {
-        display:block;
+    .container-fluid .col-sm-6 {
+        width: 100%; 
+        text-align: center;
     }
-    .scrollDesktop {
-        display:none;
+    .container-fluid .filtered-list {
+        width: 100%;
     }
-}
-
-.container-fluid {
 }
 
 #devName {

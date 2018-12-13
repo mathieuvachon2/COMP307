@@ -10,7 +10,7 @@
         <!-- Search by developer-->
     <div class = "row">
         <div class="col">
-            <p>Browse Movies depending on the director</p>
+            <h2>Browse Movies depending on the director</h2>
         </div>
     </div>
 
