@@ -201,12 +201,20 @@ class GamesController extends Controller {
         if (!empty($studio_id)) {
             $games->where(array('studio_id' => $studio_id));
         }
-        $genres = GamesGenres::find()->with(array('genre'))->all();
+
         $games = $games->with(array('studio','tags'))->all();
-        if (!empty($tag_ids)) {
-            foreach ($games as $key=>$game) {
+        foreach ($games as $key=>$game) {
+
+            if (isset($tag_ids) && !empty($tag_ids)) {
+                $gameGenreIds = array();
                 foreach ($game->tags as $tag) {
-                    
+                    array_push($gameGenreIds,$tag->game_genres_id);
+                }
+                foreach ($tag_ids as $tag) {
+                    if (!in_array($tag,$gameGenreIds)) {
+                        unset($games[$key]);
+                        break;
+                    }
                 }
             }
         }

@@ -9,7 +9,7 @@
             <div class='item-head'>
                 <div class='title'>
                     <h1><?php echo $game->title?></h1>
-                    <h2><?php echo "(".$game->year.")"?></h2>
+                    <h2><?php echo $game->studio->name." (".$game->year.")"?></h2>
                 </div>
             </div>
             <div class='image'>

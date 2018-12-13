@@ -13,6 +13,7 @@ use app\models\movies\Movies;
 use app\models\movies\MoviesGenres;
 use app\models\movies\MoviesMovies;
 use app\models\movies\MovieGenres;
+use app\models\movies\People;
 
 use app\components\MoviesHelpers;    //Need one for movies
 
@@ -22,8 +23,8 @@ class MoviesController extends Controller {
    
 
     public function actionIndex() {
-        Yii::$app->view->registerCssFile('/css/moviesIndex.css');
-        Yii::$app->view->registerJsFile('/js/index2.js');
+        Yii::$app->view->registerCssFile('/css/gamesIndex.css');
+        Yii::$app->view->registerJsFile('/js/index3.js');
 
         $query = Movies::find();
         $movies = $query -> orderBy('id') -> all();      //array of ActiveRecords for movies
@@ -31,15 +32,14 @@ class MoviesController extends Controller {
 
         //Get the genres as a list ordered by their ids
         $query = MovieGenres::find();
-        $genres = $query -> select('name')->orderBy('id') -> all();     //list of movie genres ordered by id
-        $genreList = array();
+        $genreList = $query -> orderBy('id') -> all();     //list of movie genres ordered by id
 
-        foreach($genres as $genreName)
-            array_push($genreList, $genreName->name);
-
+        $directors = People::find()->orderBy('id')->all();
+        
         return $this->render('index',[
             'movies' => $movies,
             'genreList' => $genreList,
+            'directors' => $directors,
         ]);
     }
 
@@ -196,6 +196,36 @@ class MoviesController extends Controller {
         echo json_encode(array('success'=>true,'simids'=>$simIds));
 
     }  
+
+    public function actionSearch() {
+
+        $director_id = $_POST['director_id'];
+        $tag_ids = $_POST['genre_ids'];
+        $movies = Movies::find();
+        if (!empty($director_id)) {
+            $movies->where(array('director_id' => $director_id));
+        }
+
+        $movies = $movies->with(array('director','tags'))->all();
+        foreach ($movies as $key=>$movie) {
+
+            if (isset($tag_ids) && !empty($tag_ids)) {
+                $movieGenreIds = array();
+                foreach ($movie->tags as $tag) {
+                    array_push($movieGenreIds,$tag->movie_genres_id);
+                }
+                foreach ($tag_ids as $tag) {
+                    if (!in_array($tag,$movieGenreIds)) {
+                        unset($movies[$key]);
+                        break;
+                    }
+                }
+            }
+        }
+        return $this->renderPartial('table',array(
+            'movies' => $movies,
+        ));
+    }
 }
 
 ?>

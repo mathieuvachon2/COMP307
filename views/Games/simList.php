@@ -4,7 +4,7 @@
     <div class='item-head'>
         <div class='title'>
             <h1><?php echo $similar->title ?></h1>
-            <h2>(<?php echo $similar->year ?>)</h2>
+            <h2><?php echo $similar->studio->name." (".$similar->year.")" ?></h2>
         </div>
     </div>
     <div class='image'>

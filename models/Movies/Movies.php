@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 class Movies extends ActiveRecord
 {
     public function getDirector() {
-        return $this->hasOne(get_class(new Director),array('id'=>'director_id'));
+        return $this->hasOne(get_class(new People),array('id'=>'director_id'));
     }
 
     public function getTags() {

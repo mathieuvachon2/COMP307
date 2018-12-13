@@ -49,6 +49,3 @@
         'games' => $games, 
     )); ?>
     </div>
-            
-</body>
-</html>

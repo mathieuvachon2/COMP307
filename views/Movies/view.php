@@ -9,7 +9,7 @@
             <div class='item-head'>
                 <div class='title'>
                     <h1><?php echo $movie->title?></h1>
-                    <h2>(<?php echo $movie->year?>)</h2>
+                    <h2><?php echo $movie->director->first_name." ".$movie->director->last_name." (".$movie->year.")"?></h2>
                 </div>
             </div>
             <div class='image'>
