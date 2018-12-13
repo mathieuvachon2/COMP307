@@ -32,6 +32,10 @@ table.item-table tr {
     border: 1px solid black;
     height: 50px;
     font-size: 16px;
+    cursor: pointer;
+}
+table.item-table td.info {
+    padding: 5px;
 }
 .dropdown-item.selected, .dropdown-item.selected:hover {
     background: rgb(60,60,60);

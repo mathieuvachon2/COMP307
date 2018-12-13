@@ -9,7 +9,7 @@ use app\models\games\GamesGenres;
 class GamesHelpers
 {
     //function that finds the ActiveRecord of a game given an id
-    public function findGameByID($id){
+    public static function findGameByID($id){
     	//The specific game we're looking at
         $query = Games::find();
         $game = $query -> where([
