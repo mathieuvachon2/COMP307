@@ -74,7 +74,7 @@ table.item-table tr {
 }
 
 .container-fluid {
-    height: 2000px;
+    height: 4000px;
 }
 
 #devName {
@@ -94,4 +94,8 @@ table.item-table tr {
     text-align: left;
     height: 100px
 
+}
+
+.italicDescription {
+    font-size: 11px;
 }
