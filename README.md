@@ -1,3 +1,11 @@
+# Web programming class project
+
+A website where the user either recommends a similar movie or video game or searches for a similar to one he/she likes.
+Done using the YII PHP framework (model view controller based)
+
+By Benoit Kuzak, Silan He, Mathieu Vachon, Affan Jilani
+
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
